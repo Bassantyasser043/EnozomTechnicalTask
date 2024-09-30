@@ -72,6 +72,12 @@ namespace DoctorAvailabiltity.Services
                 Availabilities = availabilities
             };
         }
+        /*in the update part mainly we see if the doctorId reference to that day 
+         * or not if it isn't exist then we have to the add the time range 
+         * if not existed or shared by other doctors in TimeRange Entity
+         and update the references in all entities except the doctor Entity,
+        the other case if it isn't shared by any other doctors 
+        then update the original time range, if the day reference exists then we just try to match the previous cases*/
         public async Task UpdateDoctorAvailabilityAsync(int doctorId, UpdateDoctorTimeAvailabilityDto availabilityDto)
         {
             var doctor = await _doctorRepository.GetDoctorByIdAsync(doctorId);
@@ -79,15 +85,13 @@ namespace DoctorAvailabiltity.Services
             {
                 throw new Exception("Doctor not found.");
             }
-
-            // Check if this doctor has availability for the given DayId
             var existingAvailability = doctor.DoctorAvailabilities
                 .FirstOrDefault(da => da.DayId == availabilityDto.DayId);
 
+            // conversion of timeSpan from DTO entered.
             TimeSpan fromTime = TimeSpan.Parse(availabilityDto.TimeRange.From);
             TimeSpan toTime = TimeSpan.Parse(availabilityDto.TimeRange.To);
 
-            // If there's no availability for this day, create a new TimeRange and reference it
             if (existingAvailability == null)
             {
                 var newTimeRange = await _timeRangeRepository.GetTimeRangeAsync(fromTime, toTime);
@@ -108,12 +112,10 @@ namespace DoctorAvailabiltity.Services
             }
             else
             {
-                // Check if the TimeRange for this day is shared by multiple doctors
                 var sharedCount = await _timeRangeRepository.GetTimeRangeUsageCountAsync(existingAvailability.TimeRangeId);
 
                 if (sharedCount > 1)
                 {
-                    // TimeRange is shared, create a new TimeRange and update the reference
                     var newTimeRange = await _timeRangeRepository.GetTimeRangeAsync(fromTime, toTime);
                     if (newTimeRange == null)
                     {
@@ -126,7 +128,6 @@ namespace DoctorAvailabiltity.Services
                 }
                 else
                 {
-                    // TimeRange is not shared, update the existing TimeRange
                     var timeRange = await _timeRangeRepository.GetTimeRangeByIdAsync(existingAvailability.TimeRangeId);
                     if (timeRange != null)
                     {
