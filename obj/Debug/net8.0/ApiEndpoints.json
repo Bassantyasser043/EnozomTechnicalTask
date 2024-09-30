@@ -1,6 +1,27 @@
 [
   {
     "ContainingType": "DoctorAvailabiltity.WebApi.Controllers.DoctorController",
+    "Method": "UpdateDoctorAvailability",
+    "RelativePath": "api/Doctor/{doctorId}/availability",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "doctorId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updateDto",
+        "Type": "DoctorAvailabiltity.Repository.Dto.UpdateDoctorTimeAvailabilityDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoctorAvailabiltity.WebApi.Controllers.DoctorController",
     "Method": "GetDoctorById",
     "RelativePath": "api/Doctor/{id}",
     "HttpMethod": "GET",

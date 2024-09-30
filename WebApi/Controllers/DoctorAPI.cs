@@ -18,8 +18,8 @@ namespace DoctorAvailabiltity.WebApi.Controllers
         /// Inserts A new doctor with hos availabilities as I provide id of the day,
         /// and the time range if existed then reference if not then add it and reference.
         /// </summary>
-        /// <param name="doctorDto">The source station name.</param>
-        /// <returns>It doesn't return anything.</returns>
+        /// <param name="doctorDto">contains the name of the doctor and the avaialabilities ids.</param>
+        /// <returns>Successful if yes and notfound if day doesn't exist</returns>
         [HttpPost("create")]
         public async Task<IActionResult> CreateDoctor([FromBody] DoctorDto doctorDto)
         {
@@ -34,7 +34,7 @@ namespace DoctorAvailabiltity.WebApi.Controllers
         /// <summary>
         /// Return the required doctor by his id.
         /// </summary>
-        /// <param name="id">The source station name.</param>
+        /// <param name="id">id of the doctor</param>
         /// <returns>return Single doctor with his availabilities.</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDoctorById(int id)
@@ -44,6 +44,27 @@ namespace DoctorAvailabiltity.WebApi.Controllers
                 return NotFound();
 
             return Ok(doctorDto);
+        }
+
+        /// <summary>
+        /// update the availability of the doctor.
+        /// </summary>
+        /// <param name="doctorId">Doctor id</param>
+        /// <param name="updateDto">Mainly it contains the id of the day
+        /// and the time ranges</param>
+        /// <returns>Success message if change successful and not found if not existed </returns>
+        [HttpPut("{doctorId}/availability")]
+        public async Task<IActionResult> UpdateDoctorAvailability(int doctorId, [FromBody] UpdateDoctorTimeAvailabilityDto updateDto)
+        {
+            try
+            {
+                await _doctorService.UpdateDoctorAvailabilityAsync(doctorId, updateDto);
+                return Ok(new { message = "Doctor availability updated successfully." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
 
     }
