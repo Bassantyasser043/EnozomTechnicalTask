@@ -1,0 +1,34 @@
+[
+  {
+    "ContainingType": "DoctorAvailabiltity.WebApi.Controllers.DoctorController",
+    "Method": "GetDoctorById",
+    "RelativePath": "api/Doctor/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoctorAvailabiltity.WebApi.Controllers.DoctorController",
+    "Method": "CreateDoctor",
+    "RelativePath": "api/Doctor/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "doctorDto",
+        "Type": "DoctorAvailabiltity.Repository.Dto.DoctorDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

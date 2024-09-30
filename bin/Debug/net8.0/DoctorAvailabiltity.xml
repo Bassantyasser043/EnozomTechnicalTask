@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DoctorAvailabiltity</name>
+    </assembly>
+    <members>
+        <member name="T:DoctorAvailabiltity.Migrations.intialCreated">
+            <inheritdoc />
+        </member>
+        <member name="M:DoctorAvailabiltity.Migrations.intialCreated.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:DoctorAvailabiltity.Migrations.intialCreated.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:DoctorAvailabiltity.Migrations.intialCreated.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:DoctorAvailabiltity.WebApi.Controllers.DoctorController.CreateDoctor(DoctorAvailabiltity.Repository.Dto.DoctorDto)">
+            <summary>
+            Inserts A new doctor with hos availabilities as I provide id of the day,
+            and the time range if existed then reference if not then add it and reference.
+            </summary>
+            <param name="doctorDto">The source station name.</param>
+            <returns>It doesn't return anything.</returns>
+        </member>
+        <member name="M:DoctorAvailabiltity.WebApi.Controllers.DoctorController.GetDoctorById(System.Int32)">
+            <summary>
+            Return the required doctor by his id.
+            </summary>
+            <param name="id">The source station name.</param>
+            <returns>return Single doctor with his availabilities.</returns>
+        </member>
+    </members>
+</doc>
