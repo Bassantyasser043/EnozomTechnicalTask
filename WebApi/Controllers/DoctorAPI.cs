@@ -46,5 +46,20 @@ namespace DoctorAvailabiltity.WebApi.Controllers
             return Ok(doctorDto);
         }
 
+
+        [HttpPut("{doctorId}/availability")]
+        public async Task<IActionResult> UpdateDoctorAvailability(int doctorId, [FromBody] UpdateDoctorTimeAvailabilityDto updateDto)
+        {
+            try
+            {
+                await _doctorService.UpdateDoctorAvailabilityAsync(doctorId, updateDto);
+                return Ok(new { message = "Doctor availability updated successfully." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+
     }
 }

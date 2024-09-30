@@ -11,21 +11,30 @@ namespace DoctorAvailabiltity.Repository.Rep
            _context = myContext;
         }
 
+        public async Task<TimeRange?> GetTimeRangeAsync(TimeSpan from, TimeSpan to)
+        {
+            return await _context.TimeRanges
+                .FirstOrDefaultAsync(tr => tr.From == from && tr.To == to);
+        }
         public async Task<TimeRange> GetTimeRangeByIdAsync(int id)
         {
                 return await _context.TimeRanges.FindAsync(id);   
         }
-
-        //public async Task<List<TimeRange>> GetSharedTimeRangesAsync(TimeSpan from, TimeSpan to)
-        //{
-        //    return await _context.TimeRanges
-        //        .Where(tr => (tr.From < to && tr.To > from)) // Check for overlaps
-        //        .ToListAsync();
-        //}
-        //public async Task AddAsync(TimeRange timeRange)
-        //{
-        //    await _context.TimeRanges.AddAsync(timeRange);
-        //}
-
+        /*The part related to the update of the availability*/
+        public async Task AddAsync(TimeRange timeRange)
+        {
+            await _context.TimeRanges.AddAsync(timeRange);
+            await _context.SaveChangesAsync();
+        }
+        public async Task UpdateAsync(TimeRange timeRange)
+        {
+            _context.TimeRanges.Update(timeRange);
+            await _context.SaveChangesAsync();
+        }
+        public async Task<int> GetTimeRangeUsageCountAsync(int timeRangeId)
+        {
+            return await _context.DoctorAvailabilities
+                .CountAsync(da => da.TimeRangeId == timeRangeId);
+        }
     }
 }

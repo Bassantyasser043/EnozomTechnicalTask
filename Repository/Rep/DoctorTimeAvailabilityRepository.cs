@@ -17,10 +17,10 @@ namespace DoctorAvailabiltity.Repository.Rep
             await _context.SaveChangesAsync();
         }
 
-        //public async Task<DoctorAvailability> GetDoctorAvailabilityAsync(int dayId, int timeRangeId)
-        //{
-        //    return await _context.DoctorAvailabilities
-        //        .FirstOrDefaultAsync(da => da.DayId == dayId && da.TimeRangeId == timeRangeId);
-        //}
+        public async Task UpdateDoctorAvailabilityAsync(DoctorAvailability doctorAvailability)
+        {
+            _context.DoctorAvailabilities.Update(doctorAvailability);
+            await _context.SaveChangesAsync();
+        }
     }
 }

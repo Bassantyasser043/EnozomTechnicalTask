@@ -6,5 +6,7 @@ namespace DoctorAvailabiltity.Services
     {
         Task InsertDoctor(DoctorDto doctorDto);
         Task<DoctorDetailsDto?> GetDoctorByIdAsync(int doctorId);
+
+        Task UpdateDoctorAvailabilityAsync(int doctorId, UpdateDoctorTimeAvailabilityDto availabilityDto);
     }
 }

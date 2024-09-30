@@ -16,6 +16,9 @@
         <member name="M:DoctorAvailabiltity.Migrations.intialCreated.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="M:DoctorAvailabiltity.Repository.Rep.TimeRangeRepository.AddAsync(DoctorAvailabiltity.Repository.Entities.TimeRange)">
+            added part 
+        </member>
         <member name="M:DoctorAvailabiltity.WebApi.Controllers.DoctorController.CreateDoctor(DoctorAvailabiltity.Repository.Dto.DoctorDto)">
             <summary>
             Inserts A new doctor with hos availabilities as I provide id of the day,

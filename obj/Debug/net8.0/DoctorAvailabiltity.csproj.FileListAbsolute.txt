@@ -119,3 +119,4 @@ C:\Users\Salah\Downloads\ASP\DoctorAvailabiltity\obj\Debug\net8.0\DoctorAvailabi
 C:\Users\Salah\Downloads\ASP\DoctorAvailabiltity\obj\Debug\net8.0\DoctorAvailabiltity.genruntimeconfig.cache
 C:\Users\Salah\Downloads\ASP\DoctorAvailabiltity\obj\Debug\net8.0\ref\DoctorAvailabiltity.dll
 C:\Users\Salah\Downloads\ASP\DoctorAvailabiltity\bin\Debug\net8.0\DoctorAvailabiltity.xml
+C:\Users\Salah\Downloads\ASP\DoctorAvailabiltity\obj\Debug\net8.0\DoctorAvailabiltity.sourcelink.json
