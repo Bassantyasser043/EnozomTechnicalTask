@@ -13,7 +13,7 @@ namespace DoctorAvailabiltity.Repository.Rep
             _context = myContext;
         }
 
-        public async Task InsertDoctor(Doctor doctor)
+        public async Task AddDoctorAsync(Doctor doctor)
         {
             Debug.WriteLine($"Adding new Doctor: {doctor.DoctorName}");
             await _context.Doctors.AddAsync(doctor);

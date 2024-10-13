@@ -39,7 +39,7 @@ namespace DoctorAvailabiltity.Services
                 doctor.DoctorAvailabilities.Add(doctorAvailability);
             }
 
-            await _doctorRepository.InsertDoctor(doctor);
+            await _doctorRepository.AddDoctorAsync(doctor);
 
             Console.WriteLine($"Doctor created successfully! ID: {doctor.DoctorId}, Name: {doctor.DoctorName}");
 
@@ -98,7 +98,7 @@ namespace DoctorAvailabiltity.Services
                 if (newTimeRange == null)
                 {
                     newTimeRange = new TimeRange { From = fromTime, To = toTime };
-                    await _timeRangeRepository.AddAsync(newTimeRange);
+                    await _timeRangeRepository.AddTimeRangeAsync(newTimeRange);
                 }
 
                 var newAvailability = new DoctorAvailability
@@ -120,7 +120,7 @@ namespace DoctorAvailabiltity.Services
                     if (newTimeRange == null)
                     {
                         newTimeRange = new TimeRange { From = fromTime, To = toTime };
-                        await _timeRangeRepository.AddAsync(newTimeRange);
+                        await _timeRangeRepository.AddTimeRangeAsync(newTimeRange);
                     }
 
                     existingAvailability.TimeRangeId = newTimeRange.TimeRangeId;
@@ -133,7 +133,7 @@ namespace DoctorAvailabiltity.Services
                     {
                         timeRange.From = fromTime;
                         timeRange.To = toTime;
-                        await _timeRangeRepository.UpdateAsync(timeRange);
+                        await _timeRangeRepository.UpdateTimeRangeAsync(timeRange);
                     }
                 }
             }

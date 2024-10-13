@@ -6,8 +6,8 @@ namespace DoctorAvailabiltity.Repository.Rep
     {
         Task<TimeRange> GetTimeRangeByIdAsync(int id);
         Task<TimeRange?> GetTimeRangeAsync(TimeSpan from, TimeSpan to);
-        Task AddAsync(TimeRange timeRange);
-        Task UpdateAsync(TimeRange timeRange);
+        Task AddTimeRangeAsync(TimeRange timeRange);
+        Task UpdateTimeRangeAsync(TimeRange timeRange);
         Task<int> GetTimeRangeUsageCountAsync(int timeRangeId);
     }
 }

@@ -11,50 +11,25 @@ namespace DoctorAvailabiltity.Repository.Context
         public DbSet<TimeRange> TimeRanges { get; set; }
         public DbSet<Day> Days{ get; set; }
 
+        private readonly IConfiguration _configuration;
+        public MyContext(DbContextOptions<MyContext> options, IConfiguration configuration)
+            : base(options)
+        {
+            _configuration = configuration;
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            string ConnectionStringTask = "server=localhost;database=DoctorAvailability;user=TechnicalTask;password=testTechnical1234";
-            var connectionString = optionsBuilder.UseMySQL(ConnectionStringTask);
+            var connectionString = _configuration.GetConnectionString("DoctorAvailabilityDb");
+            optionsBuilder.UseMySQL(connectionString);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Doctor>()
-                .HasKey(p => p.DoctorId); // Set ProductId as primary key
+            var entityConfigurations = new EntityConfigurations();
+            entityConfigurations.ConfigureAll(modelBuilder);
 
-            modelBuilder.Entity<Doctor>()
-                .Property(p => p.DoctorId)
-                .ValueGeneratedOnAdd();
-
-            modelBuilder.Entity<DoctorAvailability>()
-                .HasKey(p => p.DoctorAvailabilityId); // Set ProductId as primary key
-
-            modelBuilder.Entity<DoctorAvailability>()
-                .Property(p => p.DoctorAvailabilityId)
-                .ValueGeneratedOnAdd();
-
-            modelBuilder.Entity<TimeRange>()
-               .HasKey(p => p.TimeRangeId); // Set ProductId as primary key
-
-            modelBuilder.Entity<TimeRange>()
-                .Property(p => p.TimeRangeId)
-                .ValueGeneratedOnAdd();
-
-            modelBuilder.Entity<Day>()
-               .HasKey(p => p.DayId); // Set ProductId as primary key
-
-            modelBuilder.Entity<Day>()
-                .Property(p => p.DayId)
-                .ValueGeneratedOnAdd();
-
-            DaySeeder.Seed(modelBuilder);
-            TimeRangeSeeder.Seed(modelBuilder);
-            DoctorSeeder.Seed(modelBuilder);
-            TimeAvailabilitySeeder.Seed(modelBuilder);
-
-
-
+            DataSeeder.DataSeedingToDatabase(modelBuilder);
         }
     }
 }

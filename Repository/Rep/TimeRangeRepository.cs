@@ -20,13 +20,13 @@ namespace DoctorAvailabiltity.Repository.Rep
         {
                 return await _context.TimeRanges.FindAsync(id);   
         }
-        /*The part related to the update of the availability*/
-        public async Task AddAsync(TimeRange timeRange)
+
+        public async Task AddTimeRangeAsync(TimeRange timeRange)
         {
             await _context.TimeRanges.AddAsync(timeRange);
             await _context.SaveChangesAsync();
         }
-        public async Task UpdateAsync(TimeRange timeRange)
+        public async Task UpdateTimeRangeAsync(TimeRange timeRange)
         {
             _context.TimeRanges.Update(timeRange);
             await _context.SaveChangesAsync();

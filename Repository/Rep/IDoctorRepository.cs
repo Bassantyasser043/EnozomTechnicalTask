@@ -4,7 +4,7 @@ namespace DoctorAvailabiltity.Repository.Rep
 {
     public interface IDoctorRepository
     {
-        Task InsertDoctor(Doctor doctor);
+        Task AddDoctorAsync(Doctor doctor);
         Task<Doctor> GetDoctorByIdAsync(int doctorId);
     }
 }
