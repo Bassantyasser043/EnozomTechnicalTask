@@ -31,10 +31,5 @@ namespace DoctorAvailabiltity.Repository.Rep
             _context.TimeRanges.Update(timeRange);
             await _context.SaveChangesAsync();
         }
-        public async Task<int> GetTimeRangeUsageCountAsync(int timeRangeId)
-        {
-            return await _context.DoctorAvailabilities
-                .CountAsync(da => da.TimeRangeId == timeRangeId);
-        }
     }
 }

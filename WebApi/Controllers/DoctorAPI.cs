@@ -9,10 +9,12 @@ namespace DoctorAvailabiltity.WebApi.Controllers
     public class DoctorController : ControllerBase
     {
         private readonly IDoctorServices _doctorService;
+        private readonly IDoctorAvailabiltityServices _doctorAvailabilityService;
 
-        public DoctorController(IDoctorServices doctorService)
+        public DoctorController(IDoctorServices doctorService, IDoctorAvailabiltityServices doctorAvailabilityService)
         {
             _doctorService = doctorService;
+            _doctorAvailabilityService = doctorAvailabilityService;
         }
         /// <summary>
         /// Inserts A new doctor with hos availabilities as I provide id of the day,
@@ -27,7 +29,7 @@ namespace DoctorAvailabiltity.WebApi.Controllers
             {
                 return BadRequest("Invalid doctor data.");
             }
-            await _doctorService.InsertDoctor(doctorDto);
+            await _doctorService.AddDoctorAsync(doctorDto);
 
             return Ok(new { Message = "Doctor created successfully!", doctorDto.DoctorName });
         }
@@ -58,7 +60,7 @@ namespace DoctorAvailabiltity.WebApi.Controllers
         {
             try
             {
-                await _doctorService.UpdateDoctorAvailabilityAsync(doctorId, updateDto);
+                await _doctorAvailabilityService.UpdateDoctorAvailabilityAsync(doctorId, updateDto);
                 return Ok(new { message = "Doctor availability updated successfully." });
             }
             catch (Exception ex)

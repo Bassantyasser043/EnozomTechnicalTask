@@ -7,19 +7,19 @@ namespace DoctorAvailabiltity.Services
     public class DoctorServices : IDoctorServices
     {
         private readonly IDoctorRepository _doctorRepository;
-        private readonly IDoctorTimeAvailabilityRepository _timeAvailabilityRepository;
+        private readonly IDoctorTimeAvailabilityRepository _doctorTimeAvailabilityRepository;
         private readonly ITimeRangeRepository _timeRangeRepository;
 
         public DoctorServices(IDoctorRepository doctorRepository,
-            IDoctorTimeAvailabilityRepository timeAvailabilityRepository,
+            IDoctorTimeAvailabilityRepository doctorTimeAvailabilityRepository,
             ITimeRangeRepository timeRangeRepository)
         {
             _doctorRepository = doctorRepository;
-            _timeAvailabilityRepository = timeAvailabilityRepository;
+            _doctorTimeAvailabilityRepository = doctorTimeAvailabilityRepository;
             _timeRangeRepository = timeRangeRepository;
         }
 
-        public async Task InsertDoctor(DoctorDto doctorDto)
+        public async Task AddDoctorAsync(DoctorDto doctorDto)
         {
             var doctor = new Doctor
             {
@@ -72,12 +72,8 @@ namespace DoctorAvailabiltity.Services
                 Availabilities = availabilities
             };
         }
-        /*in the update part mainly we see if the doctorId reference to that day 
-         * or not if it isn't exist then we have to the add the time range 
-         * if not existed or shared by other doctors in TimeRange Entity
-         and update the references in all entities except the doctor Entity,
-        the other case if it isn't shared by any other doctors 
-        then update the original time range, if the day reference exists then we just try to match the previous cases*/
+
+       
         public async Task UpdateDoctorAvailabilityAsync(int doctorId, UpdateDoctorTimeAvailabilityDto availabilityDto)
         {
             var doctor = await _doctorRepository.GetDoctorByIdAsync(doctorId);
@@ -108,11 +104,11 @@ namespace DoctorAvailabiltity.Services
                     TimeRangeId = newTimeRange.TimeRangeId
                 };
 
-                await _timeAvailabilityRepository.AddDoctorAvailabilityAsync(newAvailability);
+                await _doctorTimeAvailabilityRepository.AddDoctorAvailabilityAsync(newAvailability);
             }
             else
             {
-                var sharedCount = await _timeRangeRepository.GetTimeRangeUsageCountAsync(existingAvailability.TimeRangeId);
+                var sharedCount = await _doctorTimeAvailabilityRepository.GetTimeRangeUsageCountAsync(existingAvailability.TimeRangeId);
 
                 if (sharedCount > 1)
                 {
@@ -124,7 +120,7 @@ namespace DoctorAvailabiltity.Services
                     }
 
                     existingAvailability.TimeRangeId = newTimeRange.TimeRangeId;
-                    await _timeAvailabilityRepository.UpdateDoctorAvailabilityAsync(existingAvailability);
+                    await _doctorTimeAvailabilityRepository.UpdateDoctorAvailabilityAsync(existingAvailability);
                 }
                 else
                 {

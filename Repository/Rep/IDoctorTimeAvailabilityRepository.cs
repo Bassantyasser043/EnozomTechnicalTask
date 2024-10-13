@@ -6,5 +6,7 @@ namespace DoctorAvailabiltity.Repository.Rep
     {
         Task AddDoctorAvailabilityAsync(DoctorAvailability doctorAvailability);
         Task UpdateDoctorAvailabilityAsync(DoctorAvailability doctorAvailability);
+        Task<int> GetTimeRangeUsageCountAsync(int timeRangeId);
+
     }
 }

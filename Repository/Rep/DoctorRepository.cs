@@ -30,8 +30,5 @@ namespace DoctorAvailabiltity.Repository.Rep
                 .FirstOrDefaultAsync(d => d.DoctorId == doctorId);
         }
 
-
-
-
     }
 }

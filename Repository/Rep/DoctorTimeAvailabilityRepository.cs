@@ -1,5 +1,6 @@
 ﻿using DoctorAvailabiltity.Repository.Context;
 using DoctorAvailabiltity.Repository.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DoctorAvailabiltity.Repository.Rep
 {
@@ -21,6 +22,12 @@ namespace DoctorAvailabiltity.Repository.Rep
         {
             _context.DoctorAvailabilities.Update(doctorAvailability);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> GetTimeRangeUsageCountAsync(int timeRangeId)
+        {
+            return await _context.DoctorAvailabilities
+                .CountAsync(da => da.TimeRangeId == timeRangeId);
         }
     }
 }
