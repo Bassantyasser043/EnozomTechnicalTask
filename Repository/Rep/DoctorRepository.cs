@@ -1,5 +1,4 @@
 ﻿using DoctorAvailabiltity.Repository.Context;
-using DoctorAvailabiltity.Repository.Dto;
 using DoctorAvailabiltity.Repository.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;

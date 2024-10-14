@@ -9,13 +9,14 @@ namespace DoctorAvailabiltity.WebApi.Controllers
     public class DoctorController : ControllerBase
     {
         private readonly IDoctorServices _doctorService;
-        private readonly IDoctorAvailabiltityServices _doctorAvailabilityService;
+        private readonly IDoctorAvailabilityService _doctorAvailabilityService;
 
-        public DoctorController(IDoctorServices doctorService, IDoctorAvailabiltityServices doctorAvailabilityService)
+        public DoctorController(IDoctorServices doctorService, IDoctorAvailabilityService doctorAvailabilityService)
         {
             _doctorService = doctorService;
             _doctorAvailabilityService = doctorAvailabilityService;
         }
+
         /// <summary>
         /// Inserts A new doctor with hos availabilities as I provide id of the day,
         /// and the time range if existed then reference if not then add it and reference.

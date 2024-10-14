@@ -3,6 +3,7 @@
     public class UpdateDoctorTimeAvailabilityDto
     {
         public int DayId { get; set; }
-        public TimeRangeDto TimeRange { get; set; }
+        public string From { get; set; }
+        public string To { get; set; }
     }
 }

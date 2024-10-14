@@ -25,6 +25,7 @@ builder.Services.AddScoped<IDoctorTimeAvailabilityRepository, DoctorTimeAvailabi
 builder.Services.AddScoped<ITimeRangeRepository, TimeRangeRepository>();
 
 builder.Services.AddScoped<IDoctorServices, DoctorServices>();
+builder.Services.AddScoped<IDoctorAvailabilityService, DoctorAvailabilityService>();
 
 //add Controllers
 builder.Services.AddControllers();
