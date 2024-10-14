@@ -1,6 +1,8 @@
-using DoctorAvailabiltity.Repository.Context;
-using DoctorAvailabiltity.Repository.Rep;
-using DoctorAvailabiltity.Services;
+using DoctorAvailabiltity.Data.Context;
+using DoctorAvailabiltity.DoctorManagment.Services;
+using DoctorAvailabiltity.TimeAvailabilityManagment.Repository;
+using DoctorAvailabiltity.TimeAvailabilityManagment.Services;
+using DoctorManagment.Repository.DoctorRepository;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
