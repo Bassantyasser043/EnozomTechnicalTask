@@ -27,7 +27,7 @@ namespace DoctorAvailabiltity.Repository.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var entityConfigurations = new EntityConfigurations();
-            entityConfigurations.ConfigureAll(modelBuilder);
+            entityConfigurations.ConfigureAllEntities(modelBuilder);
 
             DataSeeder.DataSeedingToDatabase(modelBuilder);
         }

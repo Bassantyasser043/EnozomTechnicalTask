@@ -18,16 +18,27 @@ namespace DoctorAvailabiltity.Services
             _doctorTimeAvailabilityRepository = doctorTimeAvailabilityRepository;
             _timeRangeRepository = timeRangeRepository;
         }
-
-
-        private async Task<Doctor> GetDoctorOrThrowAsync(int doctorId)
+        public async Task UpdateDoctorAvailabilityAsync(int doctorId, UpdateDoctorTimeAvailabilityDto availabilityDto)
         {
+
             var doctor = await _doctorRepository.GetDoctorByIdAsync(doctorId);
-            if (doctor == null)
+
+            var existingAvailability = doctor.DoctorAvailabilities
+                .FirstOrDefault(da => da.DayId == availabilityDto.DayId);
+
+            // conversion of timeSpan from DTO entered.
+            TimeSpan fromTime = ConvertToTimeSpan(availabilityDto.From);
+            TimeSpan toTime = TimeSpan.Parse(availabilityDto.To);
+
+            if (existingAvailability == null)
             {
-                throw new Exception("Doctor not found.");
+                await AddNewTimeAvailabiltyAsync(doctor, availabilityDto);
+
             }
-            return doctor;
+            else
+            {
+                await UpdateExistingAvailability(existingAvailability, fromTime, toTime);
+            }
         }
         private async Task<TimeRange> CreateTimeRangeAsync(TimeSpan fromTime, TimeSpan toTime)
         {
@@ -36,19 +47,23 @@ namespace DoctorAvailabiltity.Services
             return newTimeRange;
         }
 
-        private async Task AddNewTimeAvailabiltyAsync(Doctor doctor, int dayId, TimeSpan fromTime, TimeSpan toTime) {
+        private async Task AddNewTimeAvailabiltyAsync(Doctor doctor, UpdateDoctorTimeAvailabilityDto updateDoctorTimeAvailabilityDto) {
+            
+            TimeSpan fromTime = ConvertToTimeSpan(updateDoctorTimeAvailabilityDto.From);
+            TimeSpan toTime = ConvertToTimeSpan(updateDoctorTimeAvailabilityDto.To);
             var newTimeRange = await _timeRangeRepository.GetTimeRangeAsync(fromTime, toTime)
                               ?? await CreateTimeRangeAsync(fromTime, toTime);
 
             var newAvailability = new DoctorAvailability
             {
-                DayId = dayId,
+                DayId = updateDoctorTimeAvailabilityDto.DayId,
                 DoctorId = doctor.DoctorId,
                 TimeRangeId = newTimeRange.TimeRangeId
             };
 
             await _doctorTimeAvailabilityRepository.AddDoctorAvailabilityAsync(newAvailability);
         }
+
         private async Task UpdateExistingAvailability(DoctorAvailability existingAvailability, TimeSpan fromTime, TimeSpan toTime)
         {
             var sharedCount = await _doctorTimeAvailabilityRepository.GetTimeRangeUsageCountAsync(existingAvailability.TimeRangeId);
@@ -73,28 +88,11 @@ namespace DoctorAvailabiltity.Services
                 }
             }
         }
-        
-        public async Task UpdateDoctorAvailabilityAsync(int doctorId, UpdateDoctorTimeAvailabilityDto availabilityDto)
+        private TimeSpan ConvertToTimeSpan(string givenTime)
         {
-
-            var doctor = await GetDoctorOrThrowAsync(doctorId);
-            
-            var existingAvailability = doctor.DoctorAvailabilities
-                .FirstOrDefault(da => da.DayId == availabilityDto.DayId);
-
-            // conversion of timeSpan from DTO entered.
-            TimeSpan fromTime = TimeSpan.Parse(availabilityDto.From);
-            TimeSpan toTime = TimeSpan.Parse(availabilityDto.To);
-
-            if (existingAvailability == null)
-            {
-                await AddNewTimeAvailabiltyAsync(doctor, availabilityDto.DayId, fromTime, toTime);
-    
-            }
-            else
-            {
-                await UpdateExistingAvailability(existingAvailability, fromTime, toTime);  
-            }
+            return TimeSpan.Parse(givenTime);
         }
+        
+        
     }
 }

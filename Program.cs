@@ -19,7 +19,7 @@ builder.Services.AddSwaggerGen(
     }
     );
 
-//Register Dependencies
+//Register Dependencies 
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IDoctorTimeAvailabilityRepository, DoctorTimeAvailabilityRepository>();
 builder.Services.AddScoped<ITimeRangeRepository, TimeRangeRepository>();

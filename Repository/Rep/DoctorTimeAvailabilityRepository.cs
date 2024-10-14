@@ -7,10 +7,7 @@ namespace DoctorAvailabiltity.Repository.Rep
     public class DoctorTimeAvailabilityRepository: IDoctorTimeAvailabilityRepository
     {
         private readonly MyContext _context;
-        public DoctorTimeAvailabilityRepository(MyContext context)
-        {
-            _context = context;
-        }
+        public DoctorTimeAvailabilityRepository(MyContext context) => _context = context;
 
         public async Task AddDoctorAvailabilityAsync(DoctorAvailability doctorAvailability)
         {
