@@ -1,10 +1,11 @@
-﻿using DoctorAvailabiltity.DoctorManagment.Dto;
+﻿using Repositories.Dto;
+using Repositories.Entities;
 
-namespace DoctorAvailabiltity.DoctorManagment.Services
+namespace Services
 {
     public interface IDoctorServices
     {
-        Task AddDoctorAsync(DoctorDto doctorDto);
+        Task<Doctor> AddDoctorAsync(DoctorDto doctorDto);
         Task<DoctorDetailsDto?> GetDoctorByIdAsync(int doctorId);
     }
 }

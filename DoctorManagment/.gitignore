@@ -1,0 +1,16 @@
+# Ignore Visual Studio temporary files, build results, and
+# user-specific files
+.vs/
+*.user
+*.suo
+*.sln.docstates
+bin/
+obj/
+*.vspscc
+*.vssscc
+# Visual Studio Code settings
+.vscode/
+# Backup files
+*~ 
+*.bak
+*.swp
